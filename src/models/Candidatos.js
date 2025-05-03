@@ -1,7 +1,7 @@
 import { DataTypes } from 'sequelize'
 import DBConnection from '../database/database.js'
 
-const Candidate = DBConnection.define('Candidate', {
+const Candidato = DBConnection.define('Candidato', {
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
@@ -16,14 +16,18 @@ const Candidate = DBConnection.define('Candidate', {
     allowNull: false,
     unique: true
   },
+  data_nascimento: {
+    type: DataTypes.DATEONLY,
+    allowNull: false
+  },
   password: {
     type: DataTypes.STRING,
     allowNull: false
   },
-  admin: {
+  role: {
     type: DataTypes.BOOLEAN,
-    defaultValue: false
+    defaultValue: 'user',
   }
 })
 
-export default Candidate
+export default Candidato

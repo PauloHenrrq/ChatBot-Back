@@ -19,7 +19,7 @@ async function createUserAdmin () {
       }
     })
 
-    const hashedPassword = await bcrypt.hashSync(PASSWORD_ADMIN, 10)
+    const hashedPassword = bcrypt.hashSync(PASSWORD_ADMIN, 10)
     if(!existingAdmin) {
       await Candidate.create({
         name: NAME_ADMIN,
