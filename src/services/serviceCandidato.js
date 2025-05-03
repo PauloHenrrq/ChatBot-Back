@@ -3,7 +3,7 @@ import Candidato from '../models/Candidatos.js'
 
 import bcrypt, { hashSync } from 'bcrypt'
 
-async function getCandidate (req, res) {
+async function getCandidato (req, res) {
   try {
     const getCandidato = await Candidato.findAll()
 
@@ -25,77 +25,111 @@ async function getCandidate (req, res) {
   }
 }
 
-async function registerCandidate (req, res) {
+async function registerCandidato (req, res) {
   try {
-    const { name, email, password } = req.body
+    const { name, email, data_nascimento, password } = req.body
 
-    if (!name || !email || !password) {
+    if (!name || !email || !data_nascimento || !password) {
       return answers.badRequest(res, 'Os campos não podem ficar vazios')
     }
 
-    const emailCheck = await Candidate.findOne({
+    const emailCheck = await Candidato.findOne({
       where: {
         email: email
       }
     })
 
     if (emailCheck) {
-      return answers.badRequest(res, 'Esse e-mail já foi utilizado!')
+      return answers.badRequest(res, 'Já existe um Candidato com esse e-mail!')
     }
 
     const encryptedPassword = bcrypt.hashSync(password, 10)
-    const candidateCreated = await Candidate.create({
+    const candidatoCreated = await Candidato.create({
       name,
       email,
-      password: encryptedPassword,
-      admin: false
+      data_nascimento,
+      password: encryptedPassword
     })
 
     return answers.created(
       res,
       'Candidato cadastrado com sucesso!',
-      candidateCreated
+      candidatoCreated
     )
   } catch (error) {
     return answers.internalServerError(res, 'Erro ao cadastrar', error)
   }
 }
 
-async function putCandidate (req, res) {
+async function putCandidato (req, res) {
   try {
-    const { name, email, password } = req.body
+    const { id } = req.params
+    const { name, email, data_nascimento, password } = req.body
 
-    const checkEmail = await Enterprise.findOne({
+    const findCandidato = await Candidato.findOne({
       where: {
-        email: email
+        id: id
       }
     })
-    if (checkEmail) {
-      return answers.badRequest(res, 'Esse e-mail já existe!')
+
+    if (!findCandidato) {
+      return answers.notFound(res, 'Candidato não encontrado.')
     }
 
     const hashPassword = bcrypt.hashSync(password, 10)
     const updatedData = {
-      name: name != null ? name : Candidate.name,
-      email: email != null ? email : Candidate.email,
-      password: hashPassword != null ? hashPassword : Candidate.password,
-      admin: false
+      name: name != null ? name : Candidato.name,
+      email: email != null ? email : Candidato.email,
+      data_nascimento:
+        data_nascimento != null ? data_nascimento : Candidato.data_nascimento,
+      password: hashPassword != null ? hashPassword : Candidato.password
     }
 
-    const candidateUpdate = await Candidate.update(updatedData, {
-        where: {
-            email: email
-        }
+    const candidatoUpdate = await Candidato.update(updatedData, {
+      where: {
+        email: email
+      }
     })
 
-    return answers.success(res, "Informações atualizadas!", candidateUpdate)
+    return answers.success(res, 'Informações atualizadas!', candidatoUpdate)
   } catch (error) {
-    return answers.internalServerError(res, "Erro ao atualizar as informações", error)
+    return answers.internalServerError(
+      res,
+      'Erro ao atualizar as informações',
+      error
+    )
+  }
+}
+
+async function deleteCandidato (req, res) {
+  try {
+    const { id } = req.params
+
+    const findCandidato = await Candidato.findOne({
+      where: {
+        id: id
+      }
+    })
+
+    if (!findCandidato) {
+      return answers.notFound(res, 'Candidato não encontrado')
+    }
+
+    await Candidato.destroy({
+      where: {
+        id: id
+      }
+    })
+
+    return answers.success(res, 'Candidato excluído', findCandidato)
+  } catch (error) {
+    return answers.internalServerError(res, 'Houve um erro na exclusão')
   }
 }
 
 export default {
-  getCandidate,
-  registerCandidate,
-  putCandidate
+  getCandidato,
+  registerCandidato,
+  putCandidato,
+  deleteCandidato
 }
