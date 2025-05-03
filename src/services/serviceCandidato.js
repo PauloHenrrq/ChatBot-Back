@@ -25,7 +25,7 @@ async function getCandidato (req, res) {
   }
 }
 
-async function registerCandidato (req, res) {
+async function postCandidato (req, res) {
   try {
     const { name, email, data_nascimento, password } = req.body
 
@@ -41,6 +41,12 @@ async function registerCandidato (req, res) {
 
     if (emailCheck) {
       return answers.badRequest(res, 'Já existe um Candidato com esse e-mail!')
+    }
+
+    const passwordCheck = /^{6,}$/gm
+    const passwordIsValid = passwordCheck.test(password)
+    if (!passwordIsValid) {
+      return answers.badRequest(res, 'A senha precisa conter no mínimo 6 caracteres')
     }
 
     const encryptedPassword = bcrypt.hashSync(password, 10)
@@ -129,7 +135,7 @@ async function deleteCandidato (req, res) {
 
 export default {
   getCandidato,
-  registerCandidato,
+  postCandidato,
   putCandidato,
   deleteCandidato
 }
