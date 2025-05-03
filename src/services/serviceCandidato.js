@@ -1,20 +1,20 @@
 import answers from '../responses.js'
-import Candidate from '../models/Candidate.js'
+import Candidato from '../models/Candidatos.js'
 
 import bcrypt, { hashSync } from 'bcrypt'
 
 async function getCandidate (req, res) {
   try {
-    const getCandidate = await Candidate.findAll()
+    const getCandidato = await Candidato.findAll()
 
-    if (getCandidate.length === 0) {
+    if (getCandidato.length === 0) {
       return answers.notFound(res, 'Nenhum Candidato encontrado')
     }
 
     return answers.success(
       res,
       'Candidatos encontrado com sucesso',
-      getCandidate
+      getCandidato
     )
   } catch (error) {
     return answers.internalServerError(
