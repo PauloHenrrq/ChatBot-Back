@@ -1,10 +1,10 @@
 import app from './index.js'
 import express from 'express'
 import DBConnection from './database/database.js'
-import Candidate from './models/Candidate.js'
 import syncTables from './database/sync-tables.js'
 
 import bcrypt from "bcrypt"
+import Candidato from './models/Candidato.js'
 
 const port = process.env.SERVER_PORT
 const NAME_ADMIN = process.env.NAME_ADMIN
@@ -13,19 +13,20 @@ const PASSWORD_ADMIN = process.env.PASSWORD_ADMIN
 
 async function createUserAdmin () {
   try {
-    const existingAdmin = await Candidate.findOne({
+    const existingAdmin = await Candidato.findOne({
       where: {
-        admin: true
+        role: 'admin'
       }
     })
 
     const hashedPassword = bcrypt.hashSync(PASSWORD_ADMIN, 10)
     if(!existingAdmin) {
-      await Candidate.create({
+      await Candidato.create({
         name: NAME_ADMIN,
         email: EMAIL_ADMIN,
+        data_nascimento: '2005-06-09',
         password: hashedPassword,
-        admin: true
+        role: 'admin'
       }) 
       console.log("Admin criado com sucesso")
     } else {

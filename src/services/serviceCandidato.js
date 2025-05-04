@@ -1,7 +1,7 @@
 import answers from '../responses.js'
-import Candidato from '../models/Candidatos.js'
+import Candidato from '../models/Candidato.js'
 
-import bcrypt, { hashSync } from 'bcrypt'
+import bcrypt from 'bcrypt'
 
 async function getCandidato (req, res) {
   try {
@@ -27,7 +27,7 @@ async function getCandidato (req, res) {
 
 async function postCandidato (req, res) {
   try {
-    const { name, email, data_nascimento, password } = req.body
+    const { name, email, data_nascimento, password, role } = req.body
 
     if (!name || !email || !data_nascimento || !password) {
       return answers.badRequest(res, 'Os campos não podem ficar vazios')
@@ -43,7 +43,7 @@ async function postCandidato (req, res) {
       return answers.badRequest(res, 'Já existe um Candidato com esse e-mail!')
     }
 
-    const passwordCheck = /^{6,}$/gm
+    const passwordCheck = /^{6,32}$/gm
     const passwordIsValid = passwordCheck.test(password)
     if (!passwordIsValid) {
       return answers.badRequest(res, 'A senha precisa conter no mínimo 6 caracteres')
@@ -54,7 +54,8 @@ async function postCandidato (req, res) {
       name,
       email,
       data_nascimento,
-      password: encryptedPassword
+      password: encryptedPassword,
+      role: role != 'admin' ? 'user' : 'admin'
     })
 
     return answers.created(
@@ -84,11 +85,10 @@ async function putCandidato (req, res) {
 
     const hashPassword = bcrypt.hashSync(password, 10)
     const updatedData = {
-      name: name != null ? name : Candidato.name,
-      email: email != null ? email : Candidato.email,
-      data_nascimento:
-        data_nascimento != null ? data_nascimento : Candidato.data_nascimento,
-      password: hashPassword != null ? hashPassword : Candidato.password
+      name: name ?? Candidato.name,
+      email: email ?? Candidato.email,
+      data_nascimento: data_nascimento ?? Candidato.data_nascimento,
+      password: hashPassword ?? Candidato.password
     }
 
     const candidatoUpdate = await Candidato.update(updatedData, {
@@ -97,7 +97,7 @@ async function putCandidato (req, res) {
       }
     })
 
-    return answers.success(res, 'Informações atualizadas!', candidatoUpdate)
+    return answers.success(res, 'Candidato atualizado!', candidatoUpdate)
   } catch (error) {
     return answers.internalServerError(
       res,

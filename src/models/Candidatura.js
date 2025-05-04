@@ -1,7 +1,6 @@
 import { DataTypes } from 'sequelize'
 import DBConnection from '../database/database.js'
-import Vagas from './Vagas.js'
-import Candidato from './Candidatos.js'
+import Vagas from './Vaga.js'
 
 const Candidatura = DBConnection.define('Candidatura', {
   id: {
