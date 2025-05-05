@@ -2,7 +2,7 @@ import { DataTypes } from 'sequelize'
 import DBConnection from '../database/database.js'
 import Candidatura from './Candidatura.js'
 
-const Vagas = DBConnection.define('vaga', {
+const Vaga = DBConnection.define('vaga', {
   id: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
@@ -63,6 +63,6 @@ const Vagas = DBConnection.define('vaga', {
 
 })
 
-Vagas.hasMany(Candidatura, { foreignKey: 'vagaId' })
+Vaga.hasMany(Candidatura, { foreignKey: 'vagaId' })
 
-export default Vagas
+export default Vaga

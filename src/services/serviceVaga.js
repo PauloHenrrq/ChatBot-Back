@@ -3,7 +3,7 @@ import Vaga from '../models/Vaga.js'
 
 async function getVaga (req, res) {
   try {
-    const getVagas = await Job.findAll()
+    const getVagas = await Vaga.findAll()
 
     if (getVagas.length === 0) {
       return answers.notFound(res, 'Nenhuma Vaga foi criada')
@@ -50,7 +50,7 @@ async function postVaga (req, res) {
       )
     }
 
-    const checkingVaga = await Job.findOne({
+    const checkingVaga = await Vaga.findOne({
       where: {
         titulo: titulo,
         empresa: empresa,
@@ -68,7 +68,7 @@ async function postVaga (req, res) {
       return answers.badRequest(res, 'Uma vaga com essas informações já existe')
     }
 
-    const vagaCreate = await Job.create({
+    const vagaCreate = await Vaga.create({
       title,
       enterprise,
       location,

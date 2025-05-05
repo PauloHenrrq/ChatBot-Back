@@ -1,6 +1,6 @@
 import { DataTypes } from 'sequelize'
 import DBConnection from '../database/database.js'
-import Vagas from './Vaga.js'
+import Vaga from './Vaga.js'
 
 const Candidatura = DBConnection.define('Candidatura', {
   id: {
@@ -12,7 +12,7 @@ const Candidatura = DBConnection.define('Candidatura', {
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {
-      model: Vagas,
+      model: Vaga,
       key: 'id'
     }
   },
@@ -55,6 +55,6 @@ const Candidatura = DBConnection.define('Candidatura', {
   }
 })
 
-Candidatura.belongsTo(Vagas, { foreignKey: 'vagaId' })
+Candidatura.belongsTo(Vaga, { foreignKey: 'vagaId' })
 
 export default Candidatura
