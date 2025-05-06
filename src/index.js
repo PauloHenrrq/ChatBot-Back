@@ -1,9 +1,9 @@
 import express from 'express'
 import cors from 'cors'
-import candidatoRoute from './routes/routeCandidato'
-import candidaturaRoute from './routes/routeCandidatura'
-import loginRoute from './routes/routeLogin'
-import vagaRoute from './routes/routeVaga'
+import candidatoRoute from './routes/routeCandidato.js'
+import candidaturaRoute from './routes/routeCandidatura.js'
+import loginRoute from './routes/routeLogin.js'
+import vagaRoute from './routes/routeVaga.js'
 
 const app = express()
 app.use(cors())

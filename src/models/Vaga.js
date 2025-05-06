@@ -63,6 +63,4 @@ const Vaga = DBConnection.define('vaga', {
 
 })
 
-Vaga.hasMany(Candidatura, { foreignKey: 'vagaId' })
-
 export default Vaga

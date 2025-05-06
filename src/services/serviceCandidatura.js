@@ -1,6 +1,6 @@
-import Candidatura from '../models/Candidatura'
-import Vaga from '../models/Vaga'
-import answers from '../responses'
+import Candidatura from '../models/Candidatura.js'
+import Vaga from '../models/Vaga.js'
+import answers from '../responses.js'
 
 async function getCandidatura (req, res) {
   try {

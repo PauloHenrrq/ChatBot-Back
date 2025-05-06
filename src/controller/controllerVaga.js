@@ -1,4 +1,4 @@
-import serviceVaga from "../services/serviceVaga";
+import serviceVaga from "../services/serviceVaga.js";
 
 const { getVaga, getVagaID, postVaga, putVaga, deleteVaga } = serviceVaga
 

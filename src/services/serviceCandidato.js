@@ -71,7 +71,7 @@ async function postCandidato (req, res) {
       return answers.badRequest(res, 'Já existe um Candidato com esse e-mail!')
     }
 
-    const passwordCheck = /^{6,32}$/gm
+    const passwordCheck = /^.{6,32}$/gm
     const passwordIsValid = passwordCheck.test(password)
     if (!passwordIsValid) {
       return answers.badRequest(res, 'A senha precisa conter no mínimo 6 caracteres')

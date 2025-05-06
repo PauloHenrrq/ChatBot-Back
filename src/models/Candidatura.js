@@ -47,7 +47,4 @@ const Candidatura = DBConnection.define('Candidatura', {
   }
 })
 
-Candidatura.belongsTo(Candidato, { foreignKey: 'userId' })
-Candidatura.belongsTo(Vaga, { foreignKey: 'vagaId' })
-
 export default Candidatura

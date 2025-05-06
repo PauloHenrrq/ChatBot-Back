@@ -1,4 +1,4 @@
-import serviceCandidatura from "../services/serviceCandidatura";
+import serviceCandidatura from "../services/serviceCandidatura.js";
 
 const { getCandidatura, getCandidaturaID, postCandidatura, putCandidatura, deleteCandidatura } = serviceCandidatura
 

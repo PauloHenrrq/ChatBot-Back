@@ -25,6 +25,7 @@ async function createUserAdmin () {
         name: NAME_ADMIN,
         email: EMAIL_ADMIN,
         data_nascimento: '2005-06-09',
+        telefone: '',
         password: hashedPassword,
         role: 'admin'
       }) 

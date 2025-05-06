@@ -1,4 +1,4 @@
-import serviceCandidato from "../services/serviceCandidato"
+import serviceCandidato from "../services/serviceCandidato.js"
 
 const { getCandidato, getCandidatoID, postCandidato, putCandidato, deleteCandidato } = serviceCandidato
 

@@ -1,24 +1,25 @@
 import { Sequelize } from 'sequelize'
+import dotenv from 'dotenv'
+dotenv.config()
 
-const DBname = process.env.DB_NAME 
+const DBname = process.env.DB_NAME
 const DBuser = process.env.DB_USER
-const DBpassword = process.env.DB_PASSWORD
 const DBport = process.env.DB_PORT
 
-const DBConnection = new Sequelize(DBname, DBuser, DBpassword, {
+const DBConnection = new Sequelize(DBname, DBuser, '', {
   host: 'localhost',
-  dialect: 'mariadb',
+  dialect: 'mysql',
   port: DBport,
   logging: false
 })
 
-const testConnection = async() => {
-    try {
-        await DBConnection.authenticate()
-        console.log("Database connected sucessfully")
-    } catch (error) {
-        console.log("Database Connection Error |", error)
-    }
+const testConnection = async () => {
+  try {
+    await DBConnection.authenticate()
+    console.log('Database connected successfully')
+  } catch (error) {
+    console.log('Database Connection Error |', error)
+  }
 }
 
 testConnection()

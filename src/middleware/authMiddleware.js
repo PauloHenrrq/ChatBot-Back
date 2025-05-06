@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken'
-import answers from '../responses'
+import answers from '../responses.js'
 
 const SECRET_KEY = process.env.SECRET_KEY
 
