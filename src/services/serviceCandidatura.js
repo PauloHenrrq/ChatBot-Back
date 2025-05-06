@@ -19,6 +19,28 @@ async function getCandidatura (req, res) {
   }
 }
 
+async function getCandidaturaID (req, res) {
+  try {
+    const { id } = req.params
+
+    const getCandidatura = await Candidatura.findOne({
+      where: {
+        id: id
+      }
+    })
+
+    if (!getCandidatura) {
+      return answers.notFound(res, 'Nenhuma Candidatura encontrada')
+    }
+
+    return answers.success(
+      res,
+      'Candidatura encontrada com sucesso',
+      getCandidatura
+    )
+  } catch (error) {}
+}
+
 async function postCandidatura (req, res) {
   try {
     const {
@@ -30,9 +52,10 @@ async function postCandidatura (req, res) {
       telefone,
       endereco,
       descricao,
-      curriculo,
       status
     } = req.body
+
+    const curriculo = req.file ? req.file.path : null
 
     if (
       !vagaId ||
@@ -56,17 +79,122 @@ async function postCandidatura (req, res) {
 
     const checkVaga = await Vaga.findOne({
       where: {
-        id: vagaId
+        id: vagaId,
+        email: email
       }
     })
 
-    if (checkVaga && email === checkVaga) {
-      return answers.badRequest(res, 'Você já fez uma candidatura para essa vaga')
+    if (checkVaga) {
+      return answers.badRequest(
+        res,
+        'Você já fez uma candidatura para essa vaga'
+      )
     }
 
-    
+    const candidaturaCreate = Candidatura.create({
+      vagaId,
+      vagaTitulo,
+      nome,
+      email,
+      dataNascimento,
+      telefone,
+      endereco,
+      descricao,
+      curriculo,
+      status
+    })
 
+    return answers.created(res, 'Candidatura enviada!', candidaturaCreate)
   } catch (error) {
-
+    return answers.badRequest(res, 'Houve um erro ao enviar a Candidatura')
   }
+}
+
+async function putCandidatura (req, res) {
+  try {
+    const { id } = req.params
+    const {
+      vagaId,
+      vagaTitulo,
+      nome,
+      email,
+      dataNascimento,
+      telefone,
+      endereco,
+      descricao,
+      curriculo,
+      status
+    } = req.body
+
+    const findCandidatura = await Candidatura.findOne({
+      where: {
+        id: id
+      }
+    })
+
+    if (!putCandidatura) {
+      return answers.notFound(res, 'Candidatura não existe')
+    }
+
+    const updatedData = {
+      vagaId: vagaId ?? findCandidatura.vagaId,
+      vagaTitulo: vagaTitulo ?? findCandidatura.vagaTitulo,
+      nome: nome ?? findCandidatura.nome,
+      email: email ?? findCandidatura.email,
+      dataNascimento: dataNascimento ?? findCandidatura.dataNascimento,
+      telefone: telefone ?? findCandidatura.telefone,
+      endereco: endereco ?? findCandidatura.endereco,
+      descricao: descricao ?? findCandidatura.descricao,
+      curriculo: curriculo ?? findCandidatura.curriculo,
+      status: status ?? findCandidatura.status
+    }
+
+    const candidaturaUpdate = await Candidatura.update(updatedData, {
+      where: {
+        email: email
+      }
+    })
+
+    return answers.success(res, 'Candidatura atualizada!', candidaturaUpdate)
+  } catch (error) {
+    return answers.internalServerError(
+      res,
+      'Houve um erro ao atualizar a candidatura.',
+      error
+    )
+  }
+}
+
+async function deleteCandidatura (req, res) {
+  try {
+    const { id } = req.params
+
+    const findCandidatura = await Candidatura.findOne({
+      where: {
+        id: id
+      }
+    })
+
+    if (!findCandidatura) {
+      return answers.notFound(res, 'Candidatura não encontrada')
+    }
+
+    await Candidatura.destroy({
+      where: {
+        id: id
+      }
+    })
+
+    return answers.success(res, 'Candidatura excluída', findCandidatura)
+  } catch (error) {
+    return answers.internalServerError(res, 'Houve um erro ao excluir a Candidatura', error)
+  }
+}
+
+export default {
+  getCandidatura,
+  getCandidaturaID,
+  postCandidatura,
+  putCandidatura,
+  deleteCandidatura
 }

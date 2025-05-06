@@ -5,11 +5,35 @@ async function getVaga (req, res) {
   try {
     const getVagas = await Vaga.findAll()
 
-    if (getVagas.length === 0) {
-      return answers.notFound(res, 'Nenhuma Vaga foi criada')
+    if (getVagas || getVagas.length === 0) {
+      return answers.notFound(res, 'Nenhuma Vaga foi encontrada')
     }
 
     return answers.created(res, 'Vagas encontradas', getVagas)
+  } catch (error) {
+    return answers.internalServerError(
+      res,
+      'Houve um erro ao retornar as vagas',
+      error
+    )
+  }
+}
+
+async function getVagaID (req, res) {
+  try {
+    const { id } = req.params
+
+    const getVagas = await Vaga.findOne({
+      where: {
+        id: id
+      }
+    })
+
+    if (!getVagas) {
+      return answers.notFound(res, 'Nenhuma Vaga foi encontrada')
+    }
+
+    return answers.created(res, 'Vaga encontrada', getVagas)
   } catch (error) {
     return answers.internalServerError(
       res,
@@ -107,7 +131,7 @@ async function putVaga (req, res) {
         id: id
       }
     })
-    if (!findVaga) {
+    if (!findVaga || findVaga.length === 0) {
       return answers.badRequest(res, 'A vaga não existe')
     }
 
@@ -155,7 +179,7 @@ async function deleteVaga (req, res) {
       }
     })
 
-    if(!vagaCheck) {
+    if(!vagaCheck || vagaCheck.length === 0) {
         return answers.badRequest(res, "Essa vaga não existe")
     }
 
@@ -177,6 +201,7 @@ async function deleteVaga (req, res) {
 
 export default {
     getVaga,
+    getVagaID,
     postVaga,
     putVaga,
     deleteVaga

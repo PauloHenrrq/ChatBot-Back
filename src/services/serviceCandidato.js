@@ -25,6 +25,34 @@ async function getCandidato (req, res) {
   }
 }
 
+async function getCandidatoID (req, res) {
+  try {
+    const { id } = req.params
+
+    const getCandidato = await Candidato.findOne({
+      where: {
+        id: id
+      }
+    })
+
+    if (!getCandidato) {
+      return answers.notFound(res, 'Candidato encontrado')
+    }
+
+    return answers.success(
+      res,
+      'Candidato encontrado com sucesso',
+      getCandidato
+    )
+  } catch (error) {
+    return answers.internalServerError(
+      res,
+      'Houve um erro ao encontrar os Candidatos',
+      error
+    )
+  }
+}
+
 async function postCandidato (req, res) {
   try {
     const { name, email, data_nascimento, password, role } = req.body
@@ -135,6 +163,7 @@ async function deleteCandidato (req, res) {
 
 export default {
   getCandidato,
+  getCandidatoID,
   postCandidato,
   putCandidato,
   deleteCandidato
