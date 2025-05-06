@@ -1,12 +1,21 @@
 import { DataTypes } from 'sequelize'
 import DBConnection from '../database/database.js'
 import Vaga from './Vaga.js'
+import Candidato from './Candidato.js'
 
 const Candidatura = DBConnection.define('Candidatura', {
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
     autoIncrement: true
+  },
+  userId: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    references: {
+      model: Candidato,
+      key: 'id'
+    }
   },
   vagaId: {
     type: DataTypes.INTEGER,
@@ -17,23 +26,6 @@ const Candidatura = DBConnection.define('Candidatura', {
     }
   },
   vagaTitulo: {
-    type: DataTypes.STRING,
-    allowNull: false
-  },
-  nome: {
-    type: DataTypes.STRING,
-    allowNull: false
-  },
-  email: {
-    type: DataTypes.STRING,
-    allowNull: false,
-    unique: false
-  },
-  dataNascimento: {
-    type: DataTypes.DATEONLY,
-    allowNull: false
-  },
-  telefone: {
     type: DataTypes.STRING,
     allowNull: false
   },
@@ -55,6 +47,7 @@ const Candidatura = DBConnection.define('Candidatura', {
   }
 })
 
+Candidatura.belongsTo(Candidato, { foreignKey: 'userId' })
 Candidatura.belongsTo(Vaga, { foreignKey: 'vagaId' })
 
 export default Candidatura

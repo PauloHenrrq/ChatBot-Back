@@ -43,6 +43,12 @@ async function getCandidaturaID (req, res) {
 
 async function postCandidatura (req, res) {
   try {
+    const userId = req.user.id
+
+    if(!userId) {
+      return answers.unauthorized(res, 'Você não possui autorização')
+    }
+
     const {
       vagaId,
       vagaTitulo,
@@ -55,7 +61,7 @@ async function postCandidatura (req, res) {
       status
     } = req.body
 
-    const curriculo = req.file ? req.file.path : null
+    const curriculo = req.file ? req.file.filename : null
 
     if (
       !vagaId ||
@@ -79,8 +85,8 @@ async function postCandidatura (req, res) {
 
     const checkVaga = await Vaga.findOne({
       where: {
-        id: vagaId,
-        email: email
+        userId,
+        vagaId
       }
     })
 
@@ -91,7 +97,8 @@ async function postCandidatura (req, res) {
       )
     }
 
-    const candidaturaCreate = Candidatura.create({
+    const candidaturaCreate = await Candidatura.create({
+      userId,
       vagaId,
       vagaTitulo,
       nome,

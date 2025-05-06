@@ -13,7 +13,7 @@ const authMiddleware = (req, res, next) => {
     const token = authHeader.replace('Bearer ', '')
 
     const verifiedToken = jwt.verify(token, SECRET_KEY)
-    req.user = verifiedToken
+    req.user = verifiedToken.data
     next()
   } catch (error) {
     return answers.internalServerError(

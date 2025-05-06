@@ -23,13 +23,19 @@ async function login (req, res) {
       return answers.badRequest(res, 'Email ou Senha incorretos!')
     }
 
-    const verifyPassword = await bcrypt.compare(password, findCandidato.password)
+    const verifyPassword = await bcrypt.compare(
+      password,
+      findCandidato.password
+    )
     if (!verifyPassword) {
       return answers.badRequest(res, 'Email ou Senha incorretos!')
     } else {
       const token = jwt.sign(
         {
-          data: { id: findCandidato.id }
+          data: {
+            id: findCandidato.id,
+            role: findCandidato.role
+          }
         },
         SECRET_KEY,
         { expiresIn: '1h' }

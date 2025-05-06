@@ -55,9 +55,9 @@ async function getCandidatoID (req, res) {
 
 async function postCandidato (req, res) {
   try {
-    const { name, email, data_nascimento, password, role } = req.body
+    const { name, email, data_nascimento, password, telefone, role } = req.body
 
-    if (!name || !email || !data_nascimento || !password) {
+    if (!name || !email || !data_nascimento || !telefone || !password) {
       return answers.badRequest(res, 'Os campos não podem ficar vazios')
     }
 
@@ -82,8 +82,9 @@ async function postCandidato (req, res) {
       name,
       email,
       data_nascimento,
+      telefone: telefone,
       password: encryptedPassword,
-      role: role != 'admin' ? 'user' : 'admin'
+      role: req.user && req.user.role === 'admin' ? 'admin' : 'user'
     })
 
     return answers.created(
@@ -99,7 +100,7 @@ async function postCandidato (req, res) {
 async function putCandidato (req, res) {
   try {
     const { id } = req.params
-    const { name, email, data_nascimento, password } = req.body
+    const { name, email, data_nascimento, telefone, password } = req.body
 
     const findCandidato = await Candidato.findOne({
       where: {
@@ -116,6 +117,7 @@ async function putCandidato (req, res) {
       name: name ?? Candidato.name,
       email: email ?? Candidato.email,
       data_nascimento: data_nascimento ?? Candidato.data_nascimento,
+      telefone: telefone ?? Candidato.telefone,
       password: hashPassword ?? Candidato.password
     }
 
