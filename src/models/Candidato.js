@@ -20,10 +20,6 @@ const Candidato = DBConnection.define('Candidato', {
     type: DataTypes.DATEONLY,
     allowNull: false
   },
-  telefone: {
-    type: DataTypes.STRING,
-    allowNull: false
-  },
   password: {
     type: DataTypes.STRING,
     allowNull: false

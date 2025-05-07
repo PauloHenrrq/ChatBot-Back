@@ -1,6 +1,4 @@
 import app from './index.js'
-import express from 'express'
-import DBConnection from './database/database.js'
 import syncTables from './database/sync-tables.js'
 
 import bcrypt from "bcrypt"

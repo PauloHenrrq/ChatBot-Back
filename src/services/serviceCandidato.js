@@ -55,9 +55,9 @@ async function getCandidatoID (req, res) {
 
 async function postCandidato (req, res) {
   try {
-    const { name, email, data_nascimento, password, telefone, role } = req.body
+    const { name, email, data_nascimento, password } = req.body
 
-    if (!name || !email || !data_nascimento || !telefone || !password) {
+    if (!name || !email || !data_nascimento || !password) {
       return answers.badRequest(res, 'Os campos não podem ficar vazios')
     }
 
@@ -71,7 +71,7 @@ async function postCandidato (req, res) {
       return answers.badRequest(res, 'Já existe um Candidato com esse e-mail!')
     }
 
-    const passwordCheck = /^.{6,32}$/gm
+    const passwordCheck = /^.{6,32}$/
     const passwordIsValid = passwordCheck.test(password)
     if (!passwordIsValid) {
       return answers.badRequest(res, 'A senha precisa conter no mínimo 6 caracteres')
@@ -82,7 +82,6 @@ async function postCandidato (req, res) {
       name,
       email,
       data_nascimento,
-      telefone: telefone,
       password: encryptedPassword,
       role: req.user && req.user.role === 'admin' ? 'admin' : 'user'
     })
@@ -93,7 +92,8 @@ async function postCandidato (req, res) {
       candidatoCreated
     )
   } catch (error) {
-    return answers.internalServerError(res, 'Erro ao cadastrar', error)
+    console.error('Erro ao cadastrar candidato:', error);
+    return answers.internalServerError(res, 'Erro ao cadastrar candidato', error.message);
   }
 }
 
