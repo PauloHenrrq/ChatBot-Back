@@ -1,4 +1,4 @@
-import getProfile from "../services/serviceProfile";
+import getProfile from "../services/serviceProfile.js";
 
 const controllerProfile = (req, res) => {
     getProfile (req, res)
