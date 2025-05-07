@@ -28,6 +28,7 @@ async function login (req, res) {
       findCandidato.password
     )
     if (!verifyPassword) {
+      console.log('teste')
       return answers.badRequest(res, 'Email ou Senha incorretos!')
     } else {
       const token = jwt.sign(
@@ -44,6 +45,7 @@ async function login (req, res) {
       return answers.success(res, token)
     }
   } catch (error) {
+    console.log('teste')
     return answers.internalServerError(res, 'Erro ao efetuar o login', error)
   }
 }
