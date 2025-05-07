@@ -1,9 +1,11 @@
 import express from "express";
 
-import controllerProfile from "../controller/controllerProfile";
-const getProfile = controllerProfile
+import authMiddleware from "../middleware/authMiddleware.js";
+
+import controllerGetProfile from "../controller/controllerProfile.js";
+const getProfile = controllerGetProfile
 const profileRoute = express.Router()
 
-profileRoute.get('/profile',  getProfile)
+profileRoute.get('/profile', authMiddleware, getProfile)
 
 export default profileRoute
