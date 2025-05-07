@@ -22,6 +22,7 @@ async function login (req, res) {
     if (!findCandidato) {
       return answers.badRequest(res, 'Email ou Senha incorretos!')
     }
+    const role = findCandidato.role
 
     const verifyPassword = await bcrypt.compare(
       password,
@@ -41,7 +42,7 @@ async function login (req, res) {
         { expiresIn: '1h' }
       )
 
-      return answers.success(res, { token })
+      return answers.success(res, { token, role })
     }
   } catch (error) {
     return answers.internalServerError(res, 'Erro ao efetuar o login', error)
