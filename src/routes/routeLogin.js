@@ -5,6 +5,6 @@ const login = controllerLogin
 
 const loginRoute = express.Router()
 
-loginRoute.post('/', login)
+loginRoute.post('/login', login)
 
 export default loginRoute
