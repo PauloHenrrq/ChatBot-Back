@@ -1,7 +1,7 @@
 import getProfile from "../services/serviceProfile";
 
-const controllerGetProfile = (req, res) => {
+const controllerProfile = (req, res) => {
     getProfile (req, res)
 }
 
-export default controllerGetProfile
+export default controllerProfile
