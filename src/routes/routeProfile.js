@@ -1,7 +1,7 @@
 import express from "express";
 
-import controllerGetProfile from "../controller/controllerProfile";
-const getProfile = controllerGetProfile
+import controllerProfile from "../controller/controllerProfile";
+const getProfile = controllerProfile
 const profileRoute = express.Router()
 
 profileRoute.get('/profile',  getProfile)
