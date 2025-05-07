@@ -13,14 +13,14 @@ const {
  } = controllerCandidato
 const routeCandidato = express.Router()
 
-candidatoRoute.get("/users", authMiddleware, adminMiddleware, getCandidato)
+routeCandidato.get("/users", authMiddleware, adminMiddleware, getCandidato)
 
-candidatoRoute.get('/users/:id', authMiddleware, getCandidatoID)
+routeCandidato.get('/users/:id', authMiddleware, getCandidatoID)
 
-candidatoRoute.post('/users', postCandidato) 
+routeCandidato.post('/users', postCandidato) 
 
-candidatoRoute.put('/users/:id', authMiddleware, putCandidato)
+routeCandidato.put('/users/:id', authMiddleware, putCandidato)
 
-candidatoRoute.delete('users/:id', authMiddleware, adminMiddleware, delCandidato)
+routeCandidato.delete('users/:id', authMiddleware, adminMiddleware, delCandidato)
 
 export default routeCandidato
