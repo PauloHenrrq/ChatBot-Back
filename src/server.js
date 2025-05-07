@@ -40,7 +40,7 @@ const initServer = async () => {
   await syncTables()
   await createUserAdmin()
   app.listen(port, error => {
-    console.log(`Server is running on http://localhost:${port}`)
+    console.log(`Server is running on port ${port}`)
   })
 }
 
