@@ -43,18 +43,10 @@ async function getCandidaturaID (req, res) {
 
 async function postCandidatura (req, res) {
   try {
-    const userId = req.user.id
-
-    if(!userId) {
-      return answers.unauthorized(res, 'Você não possui autorização')
-    }
-
     const {
+      userId,
       vagaId,
       vagaTitulo,
-      nome,
-      email,
-      dataNascimento,
       telefone,
       descricao,
       status
@@ -63,25 +55,23 @@ async function postCandidatura (req, res) {
     const endereco = req.body.endereco ? JSON.parse(req.body.endereco) : null
     const curriculo = req.file ? req.file.filename : null
 
-    // if (
-    //   !vagaId ||
-    //   !vagaTitulo ||
-    //   !nome ||
-    //   !email ||
-    //   !dataNascimento ||
-    //   !telefone ||
-    //   !endereco ||
-    //   !endereco.rua ||
-    //   !endereco.numero ||
-    //   !endereco.bairro ||
-    //   !endereco.cidade ||
-    //   !endereco.estado ||
-    //   !endereco.cep ||
-    //   !descricao ||
-    //   !curriculo
-    // ) {
-    //   return answers.badRequest(res, 'Os campos não podem estar vaziossssssss')
-    // }
+    if (
+      !userId ||
+      !vagaId ||
+      !vagaTitulo ||
+      !telefone ||
+      !endereco ||
+      !endereco.rua ||
+      !endereco.numero ||
+      !endereco.bairro ||
+      !endereco.cidade ||
+      !endereco.estado ||
+      !endereco.cep ||
+      !descricao ||
+      !curriculo
+    ) {
+      return answers.badRequest(res, 'Os campos não podem estar vaziossssssss')
+    }
 
     const checkVaga = await Vaga.findOne({
       where: {
@@ -101,9 +91,6 @@ async function postCandidatura (req, res) {
       userId,
       vagaId,
       vagaTitulo,
-      nome,
-      email,
-      dataNascimento,
       telefone,
       endereco,
       descricao,
@@ -113,7 +100,7 @@ async function postCandidatura (req, res) {
 
     return answers.created(res, 'Candidatura enviada!', candidaturaCreate)
   } catch (error) {
-    return answers.badRequest(res, 'Houve um erro ao enviar a Candidatura')
+    return answers.internalServerError(res, 'Houve um erro ao enviar a Candidatura')
   }
 }
 
