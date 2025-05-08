@@ -70,8 +70,7 @@ async function postCandidatura (req, res) {
       !email ||
       !dataNascimento ||
       !telefone ||
-      !descricao ||
-      !curriculo
+      !descricao
     ) {
       return answers.badRequest(res, 'Os campos não podem estar vazios')
     }
