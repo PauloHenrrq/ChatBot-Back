@@ -25,36 +25,15 @@ const Vaga = DBConnection.define('vaga', {
   },
   requisitos: {
     type: DataTypes.JSON,
-    allowNull: false,
-    get () {
-      const raw = this.getDataValue('requisitos')
-      return raw ? JSON.parse(raw) : []
-    },
-    set (value) {
-      this.setDataValue('requisitos', JSON.stringify(value))
-    }
+    allowNull: false
   },
   responsabilidades: {
     type: DataTypes.JSON,
-    allowNull: false,
-    get () {
-      const raw = this.getDataValue('responsabilidades')
-      return raw ? JSON.parse(raw) : []
-    },
-    set (value) {
-      this.setDataValue('responsabilidades', JSON.stringify(value))
-    }
+    allowNull: false
   },
   beneficios: {
     type: DataTypes.JSON,
-    allowNull: false,
-    get () {
-      const raw = this.getDataValue('beneficios')
-      return raw ? JSON.parse(raw) : []
-    },
-    set (value) {
-      this.setDataValue('beneficios', JSON.stringify(value))
-    }
+    allowNull: false
   },
   salario: {
     type: DataTypes.STRING,
