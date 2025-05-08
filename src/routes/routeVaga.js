@@ -17,7 +17,7 @@ vagaRoute.get('/vagas', authMiddleware, getVaga)
 
 vagaRoute.get('/vagas/:id', authMiddleware, getVagaID)
 
-vagaRoute.post('/vagas', authMiddleware, postVaga)
+vagaRoute.post('/vagas', authMiddleware, adminMiddleware, postVaga)
 
 vagaRoute.put('/vagas/:id', authMiddleware, adminMiddleware, putVaga)
 
