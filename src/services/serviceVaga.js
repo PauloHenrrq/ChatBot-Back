@@ -93,12 +93,15 @@ async function postVaga (req, res) {
     }
 
     const vagaCreate = await Vaga.create({
-      title,
-      enterprise,
-      location,
-      description,
-      detailedDescription,
-      salary
+      titulo: titulo,
+      empresa: empresa,
+      localizacao: localizacao,
+      descricao: descricao,
+      requisitos: requisitos,
+      responsabilidades: responsabilidades,
+      beneficios: beneficios,
+      salario: salario,
+      informacoes_adicionais: informacoes_adicionais
     })
 
     return answers.created(res, 'Vaga criada com sucesso', vagaCreate)
@@ -144,7 +147,8 @@ async function putVaga (req, res) {
       responsabilidades: responsabilidades ?? findVaga.responsabilidades,
       beneficios: beneficios ?? findVaga.beneficios,
       salario: salario ?? findVaga.salario,
-      informacoes_adicionais: informacoes_adicionais ?? findVaga.informacoes_adicionais
+      informacoes_adicionais:
+        informacoes_adicionais ?? findVaga.informacoes_adicionais
     }
 
     await Vaga.update(updatedVaga, {
@@ -179,8 +183,8 @@ async function deleteVaga (req, res) {
       }
     })
 
-    if(!vagaCheck || vagaCheck.length === 0) {
-        return answers.badRequest(res, "Essa vaga não existe")
+    if (!vagaCheck || vagaCheck.length === 0) {
+      return answers.badRequest(res, 'Essa vaga não existe')
     }
 
     Vaga.destroy({
@@ -200,9 +204,9 @@ async function deleteVaga (req, res) {
 }
 
 export default {
-    getVaga,
-    getVagaID,
-    postVaga,
-    putVaga,
-    deleteVaga
+  getVaga,
+  getVagaID,
+  postVaga,
+  putVaga,
+  deleteVaga
 }
