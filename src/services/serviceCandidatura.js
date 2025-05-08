@@ -56,6 +56,10 @@ async function postCandidatura (req, res) {
       return answers.badRequest(res, 'É necessário enviar um currículo');
     }
 
+    if (!endereco) {
+      return answers.badRequest(res, 'Endereço incorreto SLA')
+    }
+
     if (
       !userId ||
       !vagaId ||
