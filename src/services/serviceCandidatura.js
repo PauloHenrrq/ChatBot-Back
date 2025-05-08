@@ -108,7 +108,7 @@ async function postCandidatura (req, res) {
       endereco,
       descricao,
       curriculo,
-      status
+      status: 'Em análise'
     })
 
     return answers.created(res, 'Candidatura enviada!', candidaturaCreate)
