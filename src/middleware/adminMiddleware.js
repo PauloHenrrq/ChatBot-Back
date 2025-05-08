@@ -1,7 +1,6 @@
 import answers from '../responses.js'
 
 const adminMiddleware = (req, res, next) => {
-  console.log('req.user:', req.user.role)
   if (req.user.role != 'admin') {
     return answers.unauthorized(
       res,
