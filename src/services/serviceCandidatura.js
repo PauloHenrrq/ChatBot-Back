@@ -1,5 +1,4 @@
 import Candidatura from '../models/Candidatura.js'
-import Vaga from '../models/Vaga.js'
 import answers from '../responses.js'
 
 async function getCandidatura (req, res) {
@@ -48,14 +47,12 @@ async function postCandidatura (req, res) {
       vagaId,
       vagaTitulo,
       telefone,
+      endereco,
       descricao,
       status
     } = req.body
 
-    const endereco = req.body.endereco ? JSON.parse(req.body.endereco) : null
     const curriculo = req.file ? req.file.filename : null
-
-    console.log(req.body)
 
     if (
       !userId ||
@@ -75,7 +72,7 @@ async function postCandidatura (req, res) {
       return answers.badRequest(res, 'Os campos não podem estar vaziossssssss')
     }
 
-    const checkVaga = await Vaga.findOne({
+    const checkVaga = await Candidatura.findOne({
       where: {
         userId,
         vagaId
