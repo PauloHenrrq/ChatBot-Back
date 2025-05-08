@@ -20,7 +20,7 @@ const Vaga = DBConnection.define('vaga', {
     allowNull: false
   },
   requisitos: {
-    type: DataTypes.TEXT,
+    type: DataTypes.JSON,
     allowNull: false,
     get () {
       const raw = this.getDataValue('requisitos')
@@ -31,7 +31,7 @@ const Vaga = DBConnection.define('vaga', {
     }
   },
   responsabilidades: {
-    type: DataTypes.TEXT,
+    type: DataTypes.JSON,
     allowNull: false,
     get () {
       const raw = this.getDataValue('responsabilidades')
@@ -42,7 +42,7 @@ const Vaga = DBConnection.define('vaga', {
     }
   },
   beneficios: {
-    type: DataTypes.TEXT,
+    type: DataTypes.JSON,
     allowNull: false,
     get () {
       const raw = this.getDataValue('beneficios')
