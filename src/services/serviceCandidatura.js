@@ -40,7 +40,7 @@ async function getCandidaturaID (req, res) {
   } catch (error) {}
 }
 
-async function postCandidatura (req, res) {
+const postCandidatura = async (req, res) => {
   try {
     const {
       userId,
@@ -49,26 +49,21 @@ async function postCandidatura (req, res) {
       telefone,
       descricao,
       status
-    } = req.body
+    } = req.body;
 
     const endereco = JSON.parse(req.body.endereco);
+    const curriculo = req.file;
 
-    if (!curriculo || !curriculo.name) {
+    if (!curriculo || !curriculo.filename) {
       return answers.badRequest(res, 'É necessário enviar um currículo');
     }
 
     if (!endereco) {
-      return answers.badRequest(res, 'Endereço incorreto SLA')
+      return answers.badRequest(res, 'Endereço incorreto');
     }
 
-    if (
-      !userId ||
-      !vagaId ||
-      !vagaTitulo ||
-      !telefone ||
-      !descricao
-    ) {
-      return answers.badRequest(res, 'Os campos não podem estar vaziossssssss')
+    if (!userId || !vagaId || !vagaTitulo || !telefone || !descricao) {
+      return answers.badRequest(res, 'Os campos não podem estar vazios');
     }
 
     const checkVaga = await Candidatura.findOne({
@@ -76,13 +71,10 @@ async function postCandidatura (req, res) {
         userId,
         vagaId
       }
-    })
+    });
 
     if (checkVaga) {
-      return answers.badRequest(
-        res,
-        'Você já fez uma candidatura para essa vaga'
-      )
+      return answers.badRequest(res, 'Você já fez uma candidatura para essa vaga');
     }
 
     const candidaturaCreate = await Candidatura.create({
@@ -92,16 +84,17 @@ async function postCandidatura (req, res) {
       telefone,
       endereco,
       descricao,
-      curriculo,
+      curriculo: curriculo.filename, // Armazena só o nome do arquivo, por exemplo
       status,
       candidatoId: userId
-    })
+    });
 
-    return answers.created(res, 'Candidatura enviada!', candidaturaCreate)
+    return answers.created(res, 'Candidatura enviada!', candidaturaCreate);
   } catch (error) {
-    return answers.internalServerError(res, 'Houve um erro ao criar a candidatura', error)
+    return answers.internalServerError(res, 'Houve um erro ao criar a candidatura', error);
   }
-}
+};
+
 
 async function putCandidatura (req, res) {
   try {

@@ -1,6 +1,7 @@
 import app from './index.js'
 import syncTables from './database/sync-tables.js'
-
+import fs from 'fs'
+import path from 'path'
 import bcrypt from "bcrypt"
 import Candidato from './models/Candidato.js'
 
@@ -17,8 +18,8 @@ async function createUserAdmin () {
       }
     })
 
-    const hashedPassword = bcrypt.hashSync(PASSWORD_ADMIN, 10)
-    if(!existingAdmin) {
+    if (!existingAdmin) {
+      const hashedPassword = await bcrypt.hash(PASSWORD_ADMIN, 10) // Usando hash assíncrono
       await Candidato.create({
         name: NAME_ADMIN,
         email: EMAIL_ADMIN,
@@ -32,15 +33,25 @@ async function createUserAdmin () {
       console.log("Admin já foi criado")
     }
   } catch (error) {
-    console.log("Houve um erro ao criar o admin", error.message)
+    console.error("Houve um erro ao criar o admin:", error.message)
   }
+}
+
+const curriculosDir = path.join('uploads', 'curriculos')
+
+if (!fs.existsSync(curriculosDir)) {
+  fs.mkdirSync(curriculosDir, { recursive: true })
 }
 
 const initServer = async () => {
   await syncTables()
   await createUserAdmin()
-  app.listen(port, error => {
-    console.log(`Server is running on port ${port}`)
+  app.listen(port, (error) => {
+    if (error) {
+      console.error("Erro ao iniciar o servidor:", error)
+    } else {
+      console.log(`Server is running on port ${port}`)
+    }
   })
 }
 
