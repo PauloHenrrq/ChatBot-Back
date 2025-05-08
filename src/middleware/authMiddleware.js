@@ -14,6 +14,7 @@ const authMiddleware = (req, res, next) => {
 
     const verifiedToken = jwt.verify(token, SECRET_KEY)
     req.user = verifiedToken.data
+    console.log('authMiddleware - decoded token:', verifiedToken)
     next()
   } catch (error) {
     return answers.internalServerError(
