@@ -45,7 +45,7 @@ async function getVagaID (req, res) {
 
 async function postVaga (req, res) {
   try {
-    console.log('req.body:', req.body);
+    console.log('req.body:', req.body)
     const {
       titulo,
       empresa,
@@ -58,10 +58,23 @@ async function postVaga (req, res) {
       informacoes_adicionais
     } = req.body
 
-    if (!titulo || !empresa || !descricao || !salario) {
+    if (
+      !titulo ||
+      !empresa ||
+      !cep ||
+      !descricao ||
+      !Array.isArray(requisitos) ||
+      !requisitos.length ||
+      !Array.isArray(responsabilidades) ||
+      !responsabilidades.length ||
+      !Array.isArray(beneficios) ||
+      !beneficios.length ||
+      !salario ||
+      !informacoes_adicionais
+    ) {
       return answers.badRequest(
         res,
-        'Todos os campos precisam estar preenchidos'
+        'Campos obrigatórios ausentes ou inválidos'
       )
     }
 
