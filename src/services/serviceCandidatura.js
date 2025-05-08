@@ -47,10 +47,11 @@ async function postCandidatura (req, res) {
       vagaId,
       vagaTitulo,
       telefone,
-      endereco,
       descricao,
       status
     } = req.body
+
+    const endereco = JSON.parse(req.body.endereco);
 
     if (!curriculo || !curriculo.name) {
       return answers.badRequest(res, 'É necessário enviar um currículo');
