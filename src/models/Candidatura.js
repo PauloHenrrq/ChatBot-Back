@@ -29,6 +29,10 @@ const Candidatura = DBConnection.define('Candidatura', {
     type: DataTypes.STRING,
     allowNull: false
   },
+  telefone: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
   endereco: {
     type: DataTypes.JSON,
     allowNull: false
