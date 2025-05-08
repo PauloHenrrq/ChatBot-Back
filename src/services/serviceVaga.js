@@ -45,6 +45,7 @@ async function getVagaID (req, res) {
 
 async function postVaga (req, res) {
   try {
+    console.log('req.body:', req.body);
     const {
       titulo,
       empresa,
@@ -57,17 +58,7 @@ async function postVaga (req, res) {
       informacoes_adicionais
     } = req.body
 
-    if (
-      !titulo ||
-      !empresa ||
-      !cep ||
-      !descricao ||
-      !requisitos ||
-      !responsabilidades ||
-      !beneficios ||
-      !salario ||
-      !informacoes_adicionais
-    ) {
+    if (!titulo || !empresa || !descricao || !salario) {
       return answers.badRequest(
         res,
         'Todos os campos precisam estar preenchidos'
@@ -90,21 +81,20 @@ async function postVaga (req, res) {
     }
 
     const vagaCreate = await Vaga.create({
-      titulo: titulo,
-      empresa: empresa,
-      cep: cep,
-      descricao: descricao,
-      requisitos: requisitos, 
-      responsabilidades: responsabilidades,
-      beneficios: beneficios,
-      salario: salario,
-      informacoes_adicionais: informacoes_adicionais
+      titulo,
+      empresa,
+      cep,
+      descricao,
+      requisitos,
+      responsabilidades,
+      beneficios,
+      salario,
+      informacoes_adicionais
     })
 
     return answers.created(res, 'Vaga criada com sucesso', vagaCreate)
   } catch (error) {
-    console.error('Erro ao criar vaga:', error) 
-    console.error(error.stack);
+    console.log(error.stack)
     return answers.internalServerError(
       res,
       'Houve um erro ao criar uma vaga',
