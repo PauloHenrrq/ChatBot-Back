@@ -38,8 +38,7 @@ async function login (req, res) {
             role: findCandidato.role
           }
         },
-        SECRET_KEY,
-        { expiresIn: '1h' }
+        SECRET_KEY
       )
 
       return answers.success(res, { token, role })
