@@ -17,25 +17,4 @@ app.use(vagaRoute)
 app.use(loginRoute)
 app.use(profileRoute)
 
-app.post('/teste-vaga', async (req, res) => {
-  try {
-    const vaga = await Vaga.create({
-      titulo: 'Teste',
-      empresa: 'Teste',
-      cep: '12345678',
-      descricao: 'Descrição teste',
-      requisitos: ['Requisito 1'],
-      responsabilidades: ['Responsabilidade 1'],
-      beneficios: ['Benefício 1'],
-      salario: 'R$ 2000',
-      informacoes_adicionais: 'Nada'
-    })
-    res.status(201).json(vaga)
-  } catch (error) {
-    console.error(error.message)
-    console.error(error.stack)
-    res.status(500).json({ erro: error.message })
-  }
-})
-
 export default app

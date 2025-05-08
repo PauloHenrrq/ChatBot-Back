@@ -38,11 +38,11 @@ const Vaga = DBConnection.define('vaga', {
     type: DataTypes.TEXT,
     allowNull: false,
     get () {
-      const raw = this.getDataValue('responsabilidade')
+      const raw = this.getDataValue('responsabilidades')
       return raw ? JSON.parse(raw) : []
     },
     set (value) {
-      this.setDataValue('responsabilidade', JSON.stringify(value))
+      this.setDataValue('responsabilidades', JSON.stringify(value))
     }
   },
   beneficios: {
