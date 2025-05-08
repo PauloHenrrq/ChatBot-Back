@@ -55,6 +55,8 @@ async function postCandidatura (req, res) {
     const endereco = req.body.endereco ? JSON.parse(req.body.endereco) : null
     const curriculo = req.file ? req.file.filename : null
 
+    console.log(req.body)
+
     if (
       !userId ||
       !vagaId ||
