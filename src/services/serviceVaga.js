@@ -80,9 +80,6 @@ async function postVaga (req, res) {
         empresa,
         cep,
         descricao,
-        requisitos: requisitos.join(','), 
-        responsabilidades: responsabilidades.join(','),
-        beneficios: beneficios.join(','),
         salario,
         informacoes_adicionais
       }
@@ -97,9 +94,9 @@ async function postVaga (req, res) {
       empresa: empresa,
       cep: cep,
       descricao: descricao,
-      requisitos: requisitos.join(','), 
-      responsabilidades: responsabilidades.join(','),
-      beneficios: beneficios.join(','),
+      requisitos: requisitos, 
+      responsabilidades: responsabilidades,
+      beneficios: beneficios,
       salario: salario,
       informacoes_adicionais: informacoes_adicionais
     })
