@@ -102,7 +102,7 @@ async function postCandidatura (req, res) {
 
     return answers.created(res, 'Candidatura enviada!', candidaturaCreate)
   } catch (error) {
-    return answers.internalServerError(res, 'Houve um erro ao enviar a Candidatura')
+    return answers.internalServerError(res, req.body)
   }
 }
 
