@@ -45,13 +45,10 @@ async function getVagaID (req, res) {
 
 async function postVaga (req, res) {
   try {
-    console.log('VAGA RECEBIDA:', req.body)
-
     const {
       titulo,
       empresa,
       cep,
-      localizacao,
       descricao,
       requisitos,
       responsabilidades,
@@ -64,7 +61,6 @@ async function postVaga (req, res) {
       !titulo ||
       !empresa ||
       !cep ||
-      !localizacao ||
       !descricao ||
       !requisitos ||
       !responsabilidades ||
@@ -83,7 +79,6 @@ async function postVaga (req, res) {
         titulo: titulo,
         empresa: empresa,
         cep: cep,
-        localizacao: localizacao,
         descricao: descricao,
         requisitos: requisitos,
         responsabilidades: responsabilidades,
@@ -126,7 +121,7 @@ async function putVaga (req, res) {
     const {
       titulo,
       empresa,
-      localizacao,
+      cep,
       descricao,
       requisitos,
       responsabilidades,
@@ -147,7 +142,7 @@ async function putVaga (req, res) {
     const updatedVaga = {
       titulo: titulo ?? findVaga.titulo,
       empresa: empresa ?? findVaga.empresa,
-      localizacao: localizacao ?? findVaga.localizacao,
+      cep: cep ?? findVaga.cep,
       descricao: descricao ?? findVaga.descricao,
       requisitos: requisitos ?? findVaga.requisitos,
       responsabilidades: responsabilidades ?? findVaga.responsabilidades,
