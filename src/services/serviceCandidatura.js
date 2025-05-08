@@ -60,12 +60,6 @@ async function postCandidatura (req, res) {
       !vagaTitulo ||
       !telefone ||
       !endereco ||
-      !endereco.rua ||
-      !endereco.numero ||
-      !endereco.bairro ||
-      !endereco.cidade ||
-      !endereco.estado ||
-      !endereco.cep ||
       !descricao ||
       !curriculo
     ) {
