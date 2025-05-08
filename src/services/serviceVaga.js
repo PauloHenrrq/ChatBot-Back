@@ -50,6 +50,7 @@ async function postVaga (req, res) {
     const {
       titulo,
       empresa,
+      cep,
       localizacao,
       descricao,
       requisitos,
@@ -62,6 +63,7 @@ async function postVaga (req, res) {
     if (
       !titulo ||
       !empresa ||
+      !cep ||
       !localizacao ||
       !descricao ||
       !requisitos ||
@@ -80,6 +82,7 @@ async function postVaga (req, res) {
       where: {
         titulo: titulo,
         empresa: empresa,
+        cep: cep,
         localizacao: localizacao,
         descricao: descricao,
         requisitos: requisitos,
@@ -98,6 +101,7 @@ async function postVaga (req, res) {
       titulo: titulo,
       empresa: empresa,
       localizacao: localizacao,
+      cep: cep,
       descricao: descricao,
       requisitos: requisitos,
       responsabilidades: responsabilidades,
