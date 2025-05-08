@@ -100,7 +100,6 @@ async function postVaga (req, res) {
     const vagaCreate = await Vaga.create({
       titulo: titulo,
       empresa: empresa,
-      localizacao: localizacao,
       cep: cep,
       descricao: descricao,
       requisitos: requisitos,
