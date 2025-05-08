@@ -45,6 +45,8 @@ async function getVagaID (req, res) {
 
 async function postVaga (req, res) {
   try {
+    console.log('VAGA RECEBIDA:', req.body)
+
     const {
       titulo,
       empresa,
@@ -106,6 +108,7 @@ async function postVaga (req, res) {
 
     return answers.created(res, 'Vaga criada com sucesso', vagaCreate)
   } catch (error) {
+    console.error('Erro ao criar vaga:', error) 
     return answers.internalServerError(
       res,
       'Houve um erro ao criar uma vaga',
