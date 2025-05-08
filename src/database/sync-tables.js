@@ -5,7 +5,7 @@ AssociationsKeys()
 
 const syncTables = async () => {
   try {
-    await DBConnection.sync({ force: true })
+    await DBConnection.sync({ alter: true })
 
     console.log('Tabelas sincronizadas com sucesso!')
   } catch (error) {
