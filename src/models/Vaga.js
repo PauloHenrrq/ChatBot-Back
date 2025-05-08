@@ -15,6 +15,10 @@ const Vaga = DBConnection.define('vaga', {
     type: DataTypes.STRING,
     allowNull: false
   },
+  cep: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
   descricao: {
     type: DataTypes.STRING,
     allowNull: false
