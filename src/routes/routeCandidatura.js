@@ -2,6 +2,7 @@ import express from 'express'
 
 import authMiddleware from '../middleware/authMiddleware.js'
 import adminMiddleware from '../middleware/adminMiddleware.js'
+import uploadCurriculo from '../middleware/uploadCurriculo.js'
 
 import controllerCandidatura from '../controller/controllerCandidatura.js'
 const {
@@ -17,7 +18,7 @@ candidaturaRoute.get('/candidaturas', authMiddleware, adminMiddleware, getCandid
 
 candidaturaRoute.get('/candidaturas/:id', authMiddleware, getCandidaturaID)
 
-candidaturaRoute.post('/candidaturas', authMiddleware, postCandidatura)
+candidaturaRoute.post('/candidaturas', authMiddleware, uploadCurriculo, postCandidatura)
 
 candidaturaRoute.put('/candidaturas/:id', authMiddleware, putCandidatura)
 
