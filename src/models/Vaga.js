@@ -38,22 +38,22 @@ const Vaga = DBConnection.define('vaga', {
     type: DataTypes.TEXT,
     allowNull: false,
     get () {
-      const raw = this.getDataValue('requisitos')
+      const raw = this.getDataValue('responsabilidade')
       return raw ? JSON.parse(raw) : []
     },
     set (value) {
-      this.setDataValue('requisitos', JSON.stringify(value))
+      this.setDataValue('responsabilidade', JSON.stringify(value))
     }
   },
   beneficios: {
     type: DataTypes.TEXT,
     allowNull: false,
     get () {
-      const raw = this.getDataValue('requisitos')
+      const raw = this.getDataValue('beneficios')
       return raw ? JSON.parse(raw) : []
     },
     set (value) {
-      this.setDataValue('requisitos', JSON.stringify(value))
+      this.setDataValue('beneficios', JSON.stringify(value))
     }
   },
   salario: {
