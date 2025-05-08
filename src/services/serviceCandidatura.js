@@ -70,9 +70,17 @@ async function postCandidatura (req, res) {
       !email ||
       !dataNascimento ||
       !telefone ||
-      !descricao
+      !endereco ||
+      !endereco.rua ||
+      !endereco.numero ||
+      !endereco.bairro ||
+      !endereco.cidade ||
+      !endereco.estado ||
+      !endereco.cep ||
+      !descricao ||
+      !curriculo
     ) {
-      return answers.badRequest(res, 'Os campos não podem estar vazios')
+      return answers.badRequest(res, 'Os campos não podem estar vaziossssssss')
     }
 
     const checkVaga = await Vaga.findOne({
