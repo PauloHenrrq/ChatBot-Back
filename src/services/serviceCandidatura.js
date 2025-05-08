@@ -54,6 +54,10 @@ async function postCandidatura (req, res) {
 
     const curriculo = req.file ? req.file.filename : null
 
+    if (!curriculo || !curriculo.name) {
+      return answers.badRequest(res, 'É necessário enviar um currículo');
+    }
+
     if (
       !userId ||
       !vagaId ||
