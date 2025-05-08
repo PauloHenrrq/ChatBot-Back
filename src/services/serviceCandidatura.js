@@ -70,13 +70,6 @@ async function postCandidatura (req, res) {
       !email ||
       !dataNascimento ||
       !telefone ||
-      !endereco ||
-      !endereco.rua ||
-      !endereco.numero ||
-      !endereco.bairro ||
-      !endereco.cidade ||
-      !endereco.estado ||
-      !endereco.cep ||
       !descricao ||
       !curriculo
     ) {
