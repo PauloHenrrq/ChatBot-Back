@@ -5,7 +5,7 @@ async function getVaga (req, res) {
   try {
     const getVagas = await Vaga.findAll()
 
-    if (getVagas || getVagas.length === 0) {
+    if (!getVagas || getVagas.length === 0) {
       return answers.notFound(res, 'Nenhuma Vaga foi encontrada')
     }
 
