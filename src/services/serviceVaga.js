@@ -104,6 +104,7 @@ async function postVaga (req, res) {
     return answers.created(res, 'Vaga criada com sucesso', vagaCreate)
   } catch (error) {
     console.error('Erro ao criar vaga:', error) 
+    console.error(error.stack);
     return answers.internalServerError(
       res,
       'Houve um erro ao criar uma vaga',
