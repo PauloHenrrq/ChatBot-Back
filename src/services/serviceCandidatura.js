@@ -56,11 +56,11 @@ async function postCandidatura (req, res) {
       email,
       dataNascimento,
       telefone,
-      endereco,
       descricao,
       status
     } = req.body
 
+    const endereco = req.body.endereco ? JSON.parse(req.body.endereco) : null
     const curriculo = req.file ? req.file.filename : null
 
     if (
