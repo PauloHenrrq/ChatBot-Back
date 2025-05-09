@@ -170,7 +170,7 @@ async function deleteCandidatura (req, res) {
 
     await Candidatura.destroy({
       where: {
-        id: id
+        id: candidaturaId
       }
     })
 
