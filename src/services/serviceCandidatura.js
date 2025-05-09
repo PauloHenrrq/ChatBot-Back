@@ -156,10 +156,11 @@ async function putCandidatura (req, res) {
 async function deleteCandidatura (req, res) {
   try {
     const { id } = req.params
+    const candidaturaId = Number(id);
 
     const findCandidatura = await Candidatura.findOne({
       where: {
-        id: id
+        id: candidaturaId
       }
     })
 
