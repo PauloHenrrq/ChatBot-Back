@@ -21,6 +21,6 @@ vagaRoute.post('/vagas', authMiddleware, adminMiddleware, postVaga)
 
 vagaRoute.put('/vagas/:id', authMiddleware, adminMiddleware, putVaga)
 
-vagaRoute.delete('vagas/:id', authMiddleware, adminMiddleware, delVaga)
+vagaRoute.delete('/vagas/:id', authMiddleware, adminMiddleware, delVaga)
 
 export default vagaRoute
