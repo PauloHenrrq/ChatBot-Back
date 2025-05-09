@@ -120,7 +120,7 @@ async function putCandidatura (req, res) {
       }
     })
 
-    if (!putCandidatura) {
+    if (!findCandidatura) {
       return answers.notFound(res, 'Candidatura não existe')
     }
 
@@ -139,7 +139,7 @@ async function putCandidatura (req, res) {
 
     const candidaturaUpdate = await Candidatura.update(updatedData, {
       where: {
-        email: email
+        id: id
       }
     })
 

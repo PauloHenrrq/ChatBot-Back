@@ -202,7 +202,6 @@ async function deleteVaga (req, res) {
   }
 }
 
-
 export default {
   getVaga,
   getVagaID,
