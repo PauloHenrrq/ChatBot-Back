@@ -19,7 +19,7 @@ candidaturaRoute.get('/candidaturas', authMiddleware, adminMiddleware, getCandid
 
 candidaturaRoute.get('/candidaturas/:id', authMiddleware, getCandidaturaID)
 
-candidaturaRoute.get('/candidaturas/:candidatoId', authMiddleware, getCandidaturaCandidatoID)
+candidaturaRoute.get('/candidaturas/candidatos/:candidatoId', authMiddleware, getCandidaturaCandidatoID)
   
 candidaturaRoute.post('/candidaturas', authMiddleware, uploadCurriculo.single('curriculo'), postCandidatura)
 
