@@ -1,6 +1,6 @@
 import serviceCandidatura from "../services/serviceCandidatura.js";
 
-const { getCandidatura, getCandidaturaID, postCandidatura, putCandidatura, deleteCandidatura } = serviceCandidatura
+const { getCandidatura, getCandidaturaCandidatoID, getCandidaturaID, postCandidatura, putCandidatura, deleteCandidatura } = serviceCandidatura
 
 const controllerGetCandidatura = (req, res) => {
     getCandidatura(req, res)
@@ -8,6 +8,10 @@ const controllerGetCandidatura = (req, res) => {
 
 const controllerGetCandidaturaID = (req, res) => {
     getCandidaturaID(req, res)
+}
+
+const controllerGetCandidaturaCandidatoID = (req, res) => {
+    getCandidaturaCandidatoID(req, res)
 }
 
 const controllerPostCandidatura = (req, res) => {
@@ -24,6 +28,7 @@ const controllerDeleteCandidatura = (req, res) => {
 
 export default {
     controllerGetCandidatura,
+    controllerGetCandidaturaCandidatoID,
     controllerGetCandidaturaID,
     controllerPostCandidatura,
     controllerPutCandidatura,

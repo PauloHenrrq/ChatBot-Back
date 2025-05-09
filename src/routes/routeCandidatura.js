@@ -7,6 +7,7 @@ import uploadCurriculo from '../middleware/uploadCurriculo.js'
 import controllerCandidatura from '../controller/controllerCandidatura.js'
 const {
   controllerGetCandidatura: getCandidatura,
+  controllerGetCandidaturaCandidatoID: getCandidaturaCandidatoID,
   controllerGetCandidaturaID: getCandidaturaID,
   controllerPostCandidatura: postCandidatura,
   controllerPutCandidatura: putCandidatura,
@@ -17,6 +18,8 @@ const candidaturaRoute = express.Router()
 candidaturaRoute.get('/candidaturas', authMiddleware, adminMiddleware, getCandidatura)
 
 candidaturaRoute.get('/candidaturas/:id', authMiddleware, getCandidaturaID)
+
+candidaturaRoute.get('/candidaturas/:candidatoId', authMiddleware, getCandidaturaCandidatoID)
   
 candidaturaRoute.post('/candidaturas', authMiddleware, uploadCurriculo.single('curriculo'), postCandidatura)
 

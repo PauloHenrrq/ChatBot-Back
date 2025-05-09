@@ -42,6 +42,30 @@ async function getCandidaturaID (req, res) {
   }
 }
 
+async function getCandidaturaCandidatoID (req, res) {
+  try {
+    const { candidatoId } = req.params
+
+    const getCandidatura = await Candidatura.findAll({
+      where: {
+        candidatoId: candidatoId
+      }
+    })
+
+    if (!getCandidatura) {
+      return answers.notFound(res, 'Nenhuma Candidatura encontrada')
+    }
+
+    return answers.success(
+      res,
+      'Candidatura encontrada com sucesso',
+      getCandidatura
+    )
+  } catch (error) {
+    return answers.internalServerError(res, 'Ocorreu um erro ao retornar a Candidatura')
+  }
+}
+
 const postCandidatura = async (req, res) => {
   try {
     const {
@@ -178,6 +202,7 @@ async function deleteCandidatura (req, res) {
 
 export default {
   getCandidatura,
+  getCandidaturaCandidatoID,
   getCandidaturaID,
   postCandidatura,
   putCandidatura,
