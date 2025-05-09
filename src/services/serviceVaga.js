@@ -178,20 +178,21 @@ async function putVaga (req, res) {
 async function deleteVaga (req, res) {
   try {
     const { id } = req.params
+    const vagaId = Number(id);
 
     const vagaCheck = await Vaga.findOne({
       where: {
-        id: id
+        id: vagaId
       }
     })
 
-    if (!vagaCheck || vagaCheck.length === 0) {
+    if (!vagaCheck) {
       return answers.badRequest(res, 'Essa vaga não existe')
     }
 
     Vaga.destroy({
       where: {
-        id: id
+        id: vagaId
       }
     })
 

@@ -17,7 +17,7 @@ const candidaturaRoute = express.Router()
 candidaturaRoute.get('/candidaturas', authMiddleware, adminMiddleware, getCandidatura)
 
 candidaturaRoute.get('/candidaturas/:id', authMiddleware, getCandidaturaID)
-
+  
 candidaturaRoute.post('/candidaturas', authMiddleware, uploadCurriculo.single('curriculo'), postCandidatura)
 
 candidaturaRoute.put('/candidaturas/:id', authMiddleware, putCandidatura)
