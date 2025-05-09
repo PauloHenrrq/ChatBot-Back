@@ -22,6 +22,6 @@ candidaturaRoute.post('/candidaturas', authMiddleware, uploadCurriculo.single('c
 
 candidaturaRoute.put('/candidaturas/:id', authMiddleware, putCandidatura)
 
-candidaturaRoute.delete('/candidatura/:id', authMiddleware, delCandidatura)
+candidaturaRoute.delete('/candidaturas/:id', authMiddleware, delCandidatura)
 
 export default candidaturaRoute
