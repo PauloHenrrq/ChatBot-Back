@@ -83,7 +83,7 @@ async function postCandidato (req, res) {
       email,
       data_nascimento,
       password: encryptedPassword,
-      role: role && req.user.role === 'admin' ? 'admin' : 'user'
+      role: req.user.role === 'admin' ? 'admin' : 'user'
     })
 
     return answers.created(
