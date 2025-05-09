@@ -21,6 +21,6 @@ routeCandidato.post('/users', postCandidato)
 
 routeCandidato.put('/users/:id', authMiddleware, putCandidato)
 
-routeCandidato.delete('users/:id', authMiddleware, adminMiddleware, delCandidato)
+routeCandidato.delete('/users/:id', authMiddleware, adminMiddleware, delCandidato)
 
 export default routeCandidato
