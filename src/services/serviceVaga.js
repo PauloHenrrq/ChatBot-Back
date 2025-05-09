@@ -185,10 +185,6 @@ async function deleteVaga(req, res) {
       }
     });
 
-    if (!vagaCheck) {
-      return answers.badRequest(res, 'Essa vaga não existe');
-    }
-
     const vagaDestroyed = await Vaga.destroy({
       where: {
         id: id

@@ -164,10 +164,6 @@ async function deleteCandidatura (req, res) {
       }
     })
 
-    if (!findCandidatura) {
-      return answers.notFound(res, 'Candidatura não encontrada')
-    }
-
     await Candidatura.destroy({
       where: {
         id: candidaturaId
