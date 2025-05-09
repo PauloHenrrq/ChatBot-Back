@@ -175,33 +175,33 @@ async function putVaga (req, res) {
   }
 }
 
-async function deleteVaga (req, res) {
+async function deleteVaga(req, res) {
   try {
-    const { id } = req.params
+    const { id } = req.params;
 
     const vagaCheck = await Vaga.findOne({
       where: {
         id: id
       }
-    })
+    });
 
-    if (!vagaCheck || vagaCheck.length === 0) {
-      return answers.badRequest(res, 'Essa vaga não existe')
+    if (!vagaCheck) {
+      return answers.badRequest(res, 'Essa vaga não existe');
     }
 
-    Vaga.destroy({
+    const vagaDestroyed = await Vaga.destroy({
       where: {
         id: id
       }
-    })
+    });
 
-    return answers.success(res, 'Vaga deletada com sucesso', vagaDestroyed)
+    return answers.success(res, 'Vaga deletada com sucesso', vagaDestroyed);
   } catch (error) {
     return answers.internalServerError(
       res,
       'Houve um erro ao deletar a vaga',
       error
-    )
+    );
   }
 }
 
