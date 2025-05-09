@@ -37,7 +37,9 @@ async function getCandidaturaID (req, res) {
       'Candidatura encontrada com sucesso',
       getCandidatura
     )
-  } catch (error) {}
+  } catch (error) {
+    return answers.internalServerError(res, 'Ocorreu um erro ao retornar a Candidatura')
+  }
 }
 
 const postCandidatura = async (req, res) => {
