@@ -38,7 +38,10 @@ async function getCandidaturaID (req, res) {
       getCandidatura
     )
   } catch (error) {
-    return answers.internalServerError(res, 'Ocorreu um erro ao retornar a Candidatura')
+    return answers.internalServerError(
+      res,
+      'Ocorreu um erro ao retornar a Candidatura'
+    )
   }
 }
 
@@ -46,50 +49,42 @@ async function getCandidaturaCandidatoID (req, res) {
   try {
     const { candidatoId } = req.params
 
-    const getCandidatura = await Candidatura.findAll({
+    const userId = req.user.id
+
+    const getCandidatura = await Candidatura.findOne({
       where: {
-        candidatoId: candidatoId
+        candidatoId: candidatoId,
+        userId: userId 
       }
     })
 
     if (!getCandidatura) {
-      return answers.notFound(res, 'Nenhuma Candidatura encontrada')
+      return answers.badRequest(res, 'Candidatura não encontrada')
     }
 
-    return answers.success(
-      res,
-      'Candidatura encontrada com sucesso',
-      getCandidatura
-    )
+    return answers.success(res, 'Candidatura encontrada com sucesso', getCandidatura)
   } catch (error) {
-    return answers.internalServerError(res, 'Ocorreu um erro ao retornar a Candidatura')
+    return answers.internalServerError(res, 'Erro interno no servidor ao retornar a candidatura')
   }
 }
 
 const postCandidatura = async (req, res) => {
   try {
-    const {
-      userId,
-      vagaId,
-      vagaTitulo,
-      telefone,
-      descricao,
-      status
-    } = req.body;
+    const { userId, vagaId, vagaTitulo, telefone, descricao, status } = req.body
 
-    const endereco = JSON.parse(req.body.endereco);
-    const curriculo = req.file;
+    const endereco = JSON.parse(req.body.endereco)
+    const curriculo = req.file
 
     if (!curriculo || !curriculo.filename) {
-      return answers.badRequest(res, 'É necessário enviar um currículo');
+      return answers.badRequest(res, 'É necessário enviar um currículo')
     }
 
     if (!endereco) {
-      return answers.badRequest(res, 'Endereço incorreto');
+      return answers.badRequest(res, 'Endereço incorreto')
     }
 
     if (!userId || !vagaId || !vagaTitulo || !telefone || !descricao) {
-      return answers.badRequest(res, 'Os campos não podem estar vazios');
+      return answers.badRequest(res, 'Os campos não podem estar vazios')
     }
 
     const checkVaga = await Candidatura.findOne({
@@ -97,10 +92,13 @@ const postCandidatura = async (req, res) => {
         userId,
         vagaId
       }
-    });
+    })
 
     if (checkVaga) {
-      return answers.badRequest(res, 'Você já fez uma candidatura para essa vaga');
+      return answers.badRequest(
+        res,
+        'Você já fez uma candidatura para essa vaga'
+      )
     }
 
     const candidaturaCreate = await Candidatura.create({
@@ -113,14 +111,17 @@ const postCandidatura = async (req, res) => {
       curriculo: curriculo.filename, // Armazena só o nome do arquivo, por exemplo
       status,
       candidatoId: userId
-    });
+    })
 
-    return answers.created(res, 'Candidatura enviada!', candidaturaCreate);
+    return answers.created(res, 'Candidatura enviada!', candidaturaCreate)
   } catch (error) {
-    return answers.internalServerError(res, 'Houve um erro ao criar a candidatura', error);
+    return answers.internalServerError(
+      res,
+      'Houve um erro ao criar a candidatura',
+      error
+    )
   }
-};
-
+}
 
 async function putCandidatura (req, res) {
   try {
@@ -180,7 +181,7 @@ async function putCandidatura (req, res) {
 async function deleteCandidatura (req, res) {
   try {
     const { id } = req.params
-    const candidaturaId = Number(id);
+    const candidaturaId = Number(id)
 
     const findCandidatura = await Candidatura.findOne({
       where: {
@@ -196,7 +197,11 @@ async function deleteCandidatura (req, res) {
 
     return answers.success(res, 'Candidatura excluída', findCandidatura)
   } catch (error) {
-    return answers.internalServerError(res, 'Houve um erro ao excluir a Candidatura', error)
+    return answers.internalServerError(
+      res,
+      'Houve um erro ao excluir a Candidatura',
+      error
+    )
   }
 }
 
