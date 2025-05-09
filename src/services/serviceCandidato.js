@@ -55,7 +55,7 @@ async function getCandidatoID (req, res) {
 
 async function postCandidato (req, res) {
   try {
-    const { name, email, data_nascimento, password } = req.body
+    const { name, email, data_nascimento, password, role } = req.body
 
     if (!name || !email || !data_nascimento || !password) {
       return answers.badRequest(res, 'Os campos não podem ficar vazios')
@@ -83,7 +83,7 @@ async function postCandidato (req, res) {
       email,
       data_nascimento,
       password: encryptedPassword,
-      role: req.user && req.user.role === 'admin' ? 'admin' : 'user'
+      role: role && req.user.role === 'admin' ? 'admin' : 'user'
     })
 
     return answers.created(
