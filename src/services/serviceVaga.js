@@ -178,22 +178,18 @@ async function putVaga (req, res) {
 async function deleteVaga (req, res) {
   try {
     const { id } = req.params
-    const vagaId = Number(id);
+    const vagaId = Number(id)
 
     const vagaCheck = await Vaga.findOne({
-      where: {
-        id: vagaId
-      }
+      where: { id: vagaId }
     })
 
     if (!vagaCheck) {
       return answers.badRequest(res, 'Essa vaga não existe')
     }
 
-    Vaga.destroy({
-      where: {
-        id: vagaId
-      }
+    const vagaDestroyed = await Vaga.destroy({
+      where: { id: vagaId }
     })
 
     return answers.success(res, 'Vaga deletada com sucesso', vagaDestroyed)
@@ -205,6 +201,7 @@ async function deleteVaga (req, res) {
     )
   }
 }
+
 
 export default {
   getVaga,
