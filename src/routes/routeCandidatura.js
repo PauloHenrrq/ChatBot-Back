@@ -7,8 +7,9 @@ import uploadCurriculo from '../middleware/uploadCurriculo.js'
 import controllerCandidatura from '../controller/controllerCandidatura.js'
 const {
   controllerGetCandidatura: getCandidatura,
-  controllerGetCandidaturaCandidatoID: getCandidaturaCandidatoID,
   controllerGetCandidaturaID: getCandidaturaID,
+  controllerGetCandidaturaCandidatoID: getCandidaturaCandidatoID,
+  controllerGetCandidaturaUserID: getCandidaturaUserID,
   controllerPostCandidatura: postCandidatura,
   controllerPutCandidatura: putCandidatura,
   controllerDeleteCandidatura: delCandidatura
@@ -20,6 +21,8 @@ candidaturaRoute.get('/candidaturas', authMiddleware, adminMiddleware, getCandid
 candidaturaRoute.get('/candidaturas/:id', authMiddleware, getCandidaturaID)
 
 candidaturaRoute.get('/candidaturas/candidatos/:candidatoId', authMiddleware, getCandidaturaCandidatoID)
+
+candidaturaRoute.get('/candidaturas/user/:candidatoId', authMiddleware, getCandidaturaUserID)
   
 candidaturaRoute.post('/candidaturas', authMiddleware, uploadCurriculo.single('curriculo'), postCandidatura)
 
