@@ -1,6 +1,6 @@
 import serviceVaga from "../services/serviceVaga.js";
 
-const { getVaga, getVagaID, postVaga, putVaga, deleteVaga } = serviceVaga
+const { getVaga, getVagaID, getVagaStatus, postVaga, putVaga, deleteVaga } = serviceVaga
 
 const controllerGetVaga = (req, res) => {
     getVaga(req, res)
@@ -8,6 +8,10 @@ const controllerGetVaga = (req, res) => {
 
 const controllerGetVagaID = (req, res) => {
     getVagaID(req, res)
+}
+
+const controllerGetVagaStatus = (req, res) => {
+    getVagaStatus(req, res)
 }
 
 const controllerPostVaga = (req, res) => {
@@ -25,6 +29,7 @@ const controllerDeleteVaga = (req, res) => {
 export default {
     controllerGetVaga,
     controllerGetVagaID,
+    controllerGetVagaStatus,
     controllerPostVaga,
     controllerPutVaga,
     controllerDeleteVaga

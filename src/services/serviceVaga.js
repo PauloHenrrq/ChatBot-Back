@@ -43,6 +43,26 @@ async function getVagaID (req, res) {
   }
 }
 
+async function getVagaStatus (req, res) {
+  try {
+    const { status } = req.params
+
+    const findVagaStatus = Vaga.findOne({
+      where: {
+        status: status
+      }
+    })
+
+    if (!findVagaStatus) {
+      return answers.notFound(res, 'Status da vaga não encontrado')
+    }
+
+    return answers.success(res, 'Status da vaga encontrada!', findVagaStatus)
+  } catch (error) {
+    return answers.internalServerError(res, 'Ocorreu um erro ao retornar a vaga por Status', error)
+  }
+}
+
 async function postVaga (req, res) {
   try {
     console.log('req.body:', req.body)
@@ -205,6 +225,7 @@ async function deleteVaga (req, res) {
 export default {
   getVaga,
   getVagaID,
+  getVagaStatus,
   postVaga,
   putVaga,
   deleteVaga

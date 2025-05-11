@@ -7,6 +7,7 @@ import controllerVaga from '../controller/controllerVaga.js'
 const {
     controllerGetVaga: getVaga,
     controllerGetVagaID: getVagaID,
+    controllerGetVagaStatus: getVagaStatus,
     controllerPostVaga: postVaga,
     controllerPutVaga: putVaga,
     controllerDeleteVaga: delVaga
@@ -16,6 +17,8 @@ const vagaRoute = express.Router()
 vagaRoute.get('/vagas', authMiddleware, getVaga)
 
 vagaRoute.get('/vagas/:id', authMiddleware, getVagaID)
+
+vagaRoute.get('/vagas/:status', authMiddleware, getVagaStatus)
 
 vagaRoute.post('/vagas', authMiddleware, adminMiddleware, postVaga)
 
