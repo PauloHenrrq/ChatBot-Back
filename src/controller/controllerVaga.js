@@ -10,10 +10,6 @@ const controllerGetVagaID = (req, res) => {
     getVagaID(req, res)
 }
 
-const controllerGetVagaStatus = (req, res) => {
-    getVagaStatus(req, res)
-}
-
 const controllerPostVaga = (req, res) => {
     postVaga(req, res)
 }
@@ -29,7 +25,6 @@ const controllerDeleteVaga = (req, res) => {
 export default {
     controllerGetVaga,
     controllerGetVagaID,
-    controllerGetVagaStatus,
     controllerPostVaga,
     controllerPutVaga,
     controllerDeleteVaga
