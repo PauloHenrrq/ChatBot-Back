@@ -4,8 +4,6 @@ import routeCandidato from './routes/routeCandidato.js'
 import candidaturaRoute from './routes/routeCandidatura.js'
 import loginRoute from './routes/routeLogin.js'
 import vagaRoute from './routes/routeVaga.js'
-import profileRoute from './routes/routeProfile.js'
-import Vaga from './models/Vaga.js'
 
 const app = express()
 app.use(cors())
