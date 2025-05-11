@@ -15,7 +15,6 @@ app.use(routeCandidato)
 app.use(candidaturaRoute)
 app.use(vagaRoute)
 app.use(loginRoute)
-app.use(profileRoute)
 app.use('/uploads', express.static('uploads'))
 
 export default app
