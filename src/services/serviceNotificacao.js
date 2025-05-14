@@ -1,4 +1,4 @@
-import answers from '../responses'
+import answers from '../responses.js'
 import Notificacao from '../models/Notificacao.js'
 
 async function getNotificacao (req, res) {
