@@ -11,10 +11,9 @@ async function getVaga (req, res) {
 
     return answers.created(res, 'Vagas encontradas', getVagas)
   } catch (error) {
-    return answers.internalServerError(
-      res,
-      'Houve um erro ao retornar as vagas'
-    )
+    return answers.internalServerError({
+      message: 'Houve um erro ao retornar as vagas'
+    })
   }
 }
 
