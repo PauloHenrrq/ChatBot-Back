@@ -11,16 +11,16 @@ const {
     controllerPutCandidato: putCandidato,
     controllerDeleteCandidato: delCandidato
  } = controllerCandidato
-const routeCandidato = express.Router()
+const candidatoRoute = express.Router()
 
-routeCandidato.get("/users", authMiddleware, adminMiddleware, getCandidato)
+candidatoRoute.get("/users", authMiddleware, adminMiddleware, getCandidato)
 
-routeCandidato.get('/users/:id', authMiddleware, getCandidatoID)
+candidatoRoute.get('/users/:id', authMiddleware, getCandidatoID)
 
-routeCandidato.post('/users', postCandidato) 
+candidatoRoute.post('/users', postCandidato) 
 
-routeCandidato.put('/users/:id', authMiddleware, putCandidato)
+candidatoRoute.put('/users/:id', authMiddleware, putCandidato)
 
-routeCandidato.delete('/users/:id', authMiddleware, adminMiddleware, delCandidato)
+candidatoRoute.delete('/users/:id', authMiddleware, adminMiddleware, delCandidato)
 
-export default routeCandidato
+export default candidatoRoute
