@@ -6,7 +6,7 @@ async function getCandidatura (req, res) {
     const getCandidatura = await Candidatura.findAll()
 
     if (getCandidatura.length === 0) {
-      return answers.notFound(res, 'Candidaturas não encontradas')
+      return answers.success(res, 'Candidaturas não encontradas', [])
     }
 
     return answers.success(res, 'Candidaturas encontradas', getCandidatura)
