@@ -13,8 +13,7 @@ async function getVaga (req, res) {
   } catch (error) {
     return answers.internalServerError(
       res,
-      'Houve um erro ao retornar as vagas',
-      error
+      'Houve um erro ao retornar as vagas'
     )
   }
 }

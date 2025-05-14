@@ -133,7 +133,7 @@ const postCandidatura = async (req, res) => {
       telefone,
       endereco,
       descricao,
-      curriculo: curriculo.filename, // Armazena só o nome do arquivo, por exemplo
+      curriculo: curriculo.filename, 
       status,
       candidatoId: userId
     });
