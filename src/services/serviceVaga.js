@@ -6,14 +6,16 @@ async function getVaga (req, res) {
     const getVagas = await Vaga.findAll()
 
     if (!getVagas || getVagas.length === 0) {
-      return answers.notFound({message: 'Nenhuma Vaga foi encontrada'})
+      return answers.success(res, 'Nenhuma Vaga foi encontrada', [])
     }
 
     return answers.created(res, 'Vagas encontradas', getVagas)
   } catch (error) {
-    return answers.internalServerError({
-      message: 'Houve um erro ao retornar as vagas'
-    })
+    return answers.internalServerError(
+      res,
+      'Houve um erro ao retornar as vagas',
+      error
+    )
   }
 }
 
