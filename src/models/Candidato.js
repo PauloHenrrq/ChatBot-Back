@@ -27,6 +27,14 @@ const Candidato = DBConnection.define('Candidato', {
   role: {
     type: DataTypes.ENUM('user', 'admin'),
     defaultValue: 'user',
+  },
+  descricao: {
+    type: DataTypes.TEXT('tiny'),
+    allowNull: true
+  },
+  img: {
+    type: DataTypes.STRING,
+    allowNull: true
   }
 })
 
