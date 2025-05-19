@@ -2,6 +2,7 @@ import express from "express"
 
 import authMiddleware from "../middleware/authMiddleware.js";
 import adminMiddleware from "../middleware/adminMiddleware.js";
+import uploadImg from "../middleware/uploadImg.js";
 
 import controllerCandidato from "../controller/controllerCandidato.js";
 const { 
@@ -17,7 +18,7 @@ candidatoRoute.get("/users", authMiddleware, adminMiddleware, getCandidato)
 
 candidatoRoute.get('/users/:id', authMiddleware, getCandidatoID)
 
-candidatoRoute.post('/users', postCandidato) 
+candidatoRoute.post('/users', uploadImg.single('img'), postCandidato) 
 
 candidatoRoute.put('/users/:id', authMiddleware, putCandidato)
 

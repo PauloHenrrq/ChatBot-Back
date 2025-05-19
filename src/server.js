@@ -19,7 +19,7 @@ async function createUserAdmin () {
     })
 
     if (!existingAdmin) {
-      const hashedPassword = await bcrypt.hash(PASSWORD_ADMIN, 10) // Usando hash assíncrono
+      const hashedPassword = bcrypt.hash(PASSWORD_ADMIN, 10) // Usando hash assíncrono
       await Candidato.create({
         name: NAME_ADMIN,
         email: EMAIL_ADMIN,
@@ -38,9 +38,13 @@ async function createUserAdmin () {
 }
 
 const curriculosDir = path.join('uploads', 'curriculos')
+const imagesDir = path.join('uploads', 'img')
 
 if (!fs.existsSync(curriculosDir)) {
   fs.mkdirSync(curriculosDir, { recursive: true })
+}
+if (!fs.existsSync(imagesDir)) {
+  fs.mkdirSync(imagesDir, { recursive: true })
 }
 
 const initServer = async () => {
