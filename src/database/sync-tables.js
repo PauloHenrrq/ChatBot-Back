@@ -5,7 +5,6 @@ AssociationsKeys()
 
 const syncTables = async () => {
   try {
-    await DBConnection.getQueryInterface().removeColumn('Candidatos', 'descricao');
     await DBConnection.sync({ alter: true })
 
     console.log('Tabelas sincronizadas com sucesso!')
