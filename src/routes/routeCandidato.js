@@ -20,7 +20,7 @@ candidatoRoute.get('/users/:id', authMiddleware, getCandidatoID)
 
 candidatoRoute.post('/users', uploadImg.single('img'), postCandidato) 
 
-candidatoRoute.put('/users/:id', authMiddleware, putCandidato)
+candidatoRoute.put('/users/:id' , authMiddleware, uploadImg.single('img'), putCandidato)
 
 candidatoRoute.delete('/users/:id', authMiddleware, adminMiddleware, delCandidato)
 

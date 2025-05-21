@@ -74,7 +74,10 @@ async function postCandidato (req, res) {
     const passwordCheck = /^.{6,32}$/
     const passwordIsValid = passwordCheck.test(password)
     if (!passwordIsValid) {
-      return answers.badRequest(res, 'A senha precisa conter no mínimo 6 caracteres')
+      return answers.badRequest(
+        res,
+        'A senha precisa conter no mínimo 6 caracteres'
+      )
     }
 
     const encryptedPassword = bcrypt.hashSync(password, 10)
@@ -92,48 +95,60 @@ async function postCandidato (req, res) {
       candidatoCreated
     )
   } catch (error) {
-    console.error('Erro ao cadastrar candidato:', error);
-    return answers.internalServerError(res, 'Erro ao cadastrar candidato', error.message);
+    console.error('Erro ao cadastrar candidato:', error)
+    return answers.internalServerError(
+      res,
+      'Erro ao cadastrar candidato',
+      error.message
+    )
   }
 }
 
 async function putCandidato (req, res) {
   try {
     const { id } = req.params
-    const { name, email, data_nascimento, bio, img, password } = req.body
+    const { name, email, data_nascimento, bio, password } = req.body
 
     const findCandidato = await Candidato.findOne({
-      where: {
-        id: id
-      }
+      where: { id }
     })
 
     if (!findCandidato) {
       return answers.notFound(res, 'Candidato não encontrado.')
     }
 
-    const hashPassword = bcrypt.hashSync(password, 10)
-    const updatedData = {
-      name: name ?? Candidato.name,
-      email: email ?? Candidato.email,
-      data_nascimento: data_nascimento ?? Candidato.data_nascimento,
-      bio: bio ?? Candidato.bio,
-      img: img ?? Candidato.img,
-      password: hashPassword ?? Candidato.password
+    let img = findCandidato.img
+    if (req.file) {
+      img = req.file.filename
     }
 
-    const candidatoUpdate = await Candidato.update(updatedData, {
-      where: {
-        email: email
-      }
+    let hashedPassword = findCandidato.password
+    if (password) {
+      hashedPassword = bcrypt.hashSync(password, 10)
+    }
+
+    const updatedData = {
+      name: name ?? findCandidato.name,
+      email: email ?? findCandidato.email,
+      data_nascimento: data_nascimento ?? findCandidato.data_nascimento,
+      bio: bio ?? findCandidato.bio,
+      img: img,
+      password: hashedPassword
+    }
+
+    await Candidato.update(updatedData, {
+      where: { id }
     })
 
-    return answers.success(res, 'Candidato atualizado!', candidatoUpdate)
+    const candidatoAtualizado = await Candidato.findOne({ where: { id } })
+
+    return answers.success(res, 'Candidato atualizado!', candidatoAtualizado)
   } catch (error) {
+    console.error('Erro no putCandidato:', error)
     return answers.internalServerError(
       res,
       'Erro ao atualizar as informações',
-      error
+      error.message
     )
   }
 }
