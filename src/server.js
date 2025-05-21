@@ -1,9 +1,10 @@
 import app from './index.js'
 import syncTables from './database/sync-tables.js'
+import CandidatoSocial from './models/CandidatoSocial.js'
+import Candidato from './models/Candidato.js'
 import fs from 'fs'
 import path from 'path'
-import bcrypt from "bcrypt"
-import Candidato from './models/Candidato.js'
+import bcrypt from 'bcrypt'
 
 const port = process.env.SERVER_PORT
 const NAME_ADMIN = process.env.NAME_ADMIN
@@ -27,13 +28,13 @@ async function createUserAdmin () {
         telefone: '',
         password: hashedPassword,
         role: 'admin'
-      }) 
-      console.log("Admin criado com sucesso")
+      })
+      console.log('Admin criado com sucesso')
     } else {
-      console.log("Admin já foi criado")
+      console.log('Admin já foi criado')
     }
   } catch (error) {
-    console.error("Houve um erro ao criar o admin:", error.message)
+    console.error('Houve um erro ao criar o admin:', error.message)
   }
 }
 
@@ -48,11 +49,13 @@ if (!fs.existsSync(imagesDir)) {
 }
 
 const initServer = async () => {
+  await CandidatoSocial.sync({ alter: true })
+
   await syncTables()
   await createUserAdmin()
-  app.listen(port, (error) => {
+  app.listen(port, error => {
     if (error) {
-      console.error("Erro ao iniciar o servidor:", error)
+      console.error('Erro ao iniciar o servidor:', error)
     } else {
       console.log(`Server is running on port ${port}`)
     }
