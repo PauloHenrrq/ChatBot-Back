@@ -100,7 +100,7 @@ async function postCandidato (req, res) {
 async function putCandidato (req, res) {
   try {
     const { id } = req.params
-    const { name, email, data_nascimento, telefone, password } = req.body
+    const { name, email, data_nascimento, bio, img, password } = req.body
 
     const findCandidato = await Candidato.findOne({
       where: {
@@ -117,7 +117,8 @@ async function putCandidato (req, res) {
       name: name ?? Candidato.name,
       email: email ?? Candidato.email,
       data_nascimento: data_nascimento ?? Candidato.data_nascimento,
-      telefone: telefone ?? Candidato.telefone,
+      bio: bio ?? Candidato.bio,
+      img: img ?? Candidato.img,
       password: hashPassword ?? Candidato.password
     }
 

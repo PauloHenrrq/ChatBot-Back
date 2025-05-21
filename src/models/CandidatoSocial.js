@@ -11,6 +11,7 @@ const CandidatoSocial = DBConnection.define('candidatoSocial', {
   candidatoId: {
     type: DataTypes.INTEGER,
     allowNull: false,
+    unique: true,
     references: {
       model: Candidato,
       key: 'id'
