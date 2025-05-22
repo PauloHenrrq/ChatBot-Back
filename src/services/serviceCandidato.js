@@ -117,7 +117,7 @@ async function putCandidato (req, res) {
       return answers.notFound(res, 'Candidato não encontrado.')
     }
 
-    let img = findCandidato.img
+    let img = null
     if (req.file) {
       img = req.file.filename
     }
