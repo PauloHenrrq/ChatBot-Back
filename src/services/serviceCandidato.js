@@ -120,7 +120,9 @@ async function putCandidato (req, res) {
     let img = null
     if (req.file) {
       img = req.file.filename
-    }
+    } else if (req.body.img === '') {
+      img = null
+    } else {}
 
     let hashedPassword = findCandidato.password
     if (password) {
